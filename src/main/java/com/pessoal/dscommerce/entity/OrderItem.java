@@ -3,8 +3,10 @@ package com.pessoal.dscommerce.entity;
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
 
 @Entity
+@EqualsAndHashCode
 @Table(name = "tb_order_item")
 public class OrderItem {
 
