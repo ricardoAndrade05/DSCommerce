@@ -1,6 +1,8 @@
 package com.pessoal.dscommerce.entity;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.pessoal.dscommerce.enums.OrderStatus;
 
@@ -12,6 +14,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -40,5 +43,8 @@ public class Order {
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
+	
+	@OneToMany(mappedBy = "id.order")
+	private Set<OrderItem> items = new HashSet<>();
 
 }
