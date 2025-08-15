@@ -1,14 +1,15 @@
-package com.pessoal.dscommerce.entity;
+package com.pessoal.dscommerce.entities;
 
-import java.time.Instant;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.MapsId;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -18,18 +19,22 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "tb_payment")
-public class Payment {
+@Table(name = "tb_user")
+public class User {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+
+	@Column(unique = true)
+	private String email;
 	
-	@Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
-	private Instant moment;
+	private String name;
+	private String phone;
+	private LocalDate birthDate;
+	private String password;
 	
-	@OneToOne
-	@MapsId
-	private Order order;
-	
+	@OneToMany(mappedBy = "client")
+	private List<Order> orders = new ArrayList<>();
+
 }

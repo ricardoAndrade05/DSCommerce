@@ -1,4 +1,4 @@
-package com.pessoal.dscommerce.entity;
+package com.pessoal.dscommerce.entities;
 
 import java.time.Instant;
 import java.util.HashSet;

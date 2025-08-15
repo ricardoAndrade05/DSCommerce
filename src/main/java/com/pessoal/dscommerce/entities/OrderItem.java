@@ -1,4 +1,4 @@
-package com.pessoal.dscommerce.entity;
+package com.pessoal.dscommerce.entities;
 
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
