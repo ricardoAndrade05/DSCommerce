@@ -27,13 +27,30 @@ public class ProductService {
 		Page<Product> result = repository.findAll(pageable);
 		return result.map(p -> new ProductDTO(p));
 	}
-	
+
 	@Transactional
 	public ProductDTO insert(ProductDTO dto) {
-		Product product = new Product(dto);
+		Product product = new Product();
+		copyDTOToEntity(dto, product);
 		product = repository.save(product);
 		return new ProductDTO(product);
-		
+
+	}
+
+	@Transactional
+	public ProductDTO update(Long id, ProductDTO dto) {
+		Product product = repository.getReferenceById(id);
+		copyDTOToEntity(dto, product);
+		product = repository.save(product);
+		return new ProductDTO(product);
+
+	}
+	
+	private void copyDTOToEntity(ProductDTO dto, Product entity) {
+		entity.setName(dto.getName());
+		entity.setDescription(dto.getDescription());
+		entity.setPrice(dto.getPrice());
+		entity.setImgUrl(dto.getImgUrl());
 	}
 
 }
