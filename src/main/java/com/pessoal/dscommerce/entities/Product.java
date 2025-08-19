@@ -4,6 +4,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import com.pessoal.dscommerce.dto.ProductDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -44,6 +46,13 @@ public class Product {
 
 	public List<Order> getOrders() {
 		return items.stream().map(x -> x.getOrder()).toList();
+	}
+
+	public Product(ProductDTO dto) {
+		this.description = dto.getDescription();
+		this.name = dto.getName();
+		this.price = dto.getPrice();
+		this.imgUrl = dto.getImgUrl();
 	}
 
 }
