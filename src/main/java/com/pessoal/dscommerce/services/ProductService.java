@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.pessoal.dscommerce.dto.CategoryDTO;
 import com.pessoal.dscommerce.dto.ProductDTO;
 import com.pessoal.dscommerce.dto.ProductMinDTO;
+import com.pessoal.dscommerce.entities.Category;
 import com.pessoal.dscommerce.entities.Product;
 import com.pessoal.dscommerce.repositories.ProductRepository;
 import com.pessoal.dscommerce.services.exceptions.DatabaseException;
@@ -71,10 +73,18 @@ public class ProductService {
 	}
 
 	private void copyDTOToEntity(ProductDTO dto, Product entity) {
-		entity.setName(dto.getName());
-		entity.setDescription(dto.getDescription());
-		entity.setPrice(dto.getPrice());
-		entity.setImgUrl(dto.getImgUrl());
+        entity.setName(dto.getName());
+        entity.setDescription(dto.getDescription());
+        entity.setPrice(dto.getPrice());
+        entity.setImgUrl(dto.getImgUrl());
+        
+        entity.getCategories().clear();
+        for (CategoryDTO catDto : dto.getCategories()) {
+        	Category cat = new Category();
+        	cat.setId(catDto.getId());
+        	entity.getCategories().add(cat);
+        }
+		
 	}
 
 }
