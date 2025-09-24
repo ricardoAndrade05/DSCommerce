@@ -6,13 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
 import com.pessoal.dscommerce.entities.Role;
 import com.pessoal.dscommerce.entities.User;
 import com.pessoal.dscommerce.projections.UserDetailsProjection;
 import com.pessoal.dscommerce.repositories.UserRepository;
 
-
+@Service
 public class UserService implements UserDetailsService {
 
 	@Autowired
