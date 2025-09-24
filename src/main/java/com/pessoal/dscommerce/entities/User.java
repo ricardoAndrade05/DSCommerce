@@ -21,19 +21,11 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @SuppressWarnings("serial")
 @Entity
-@Getter
-@Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @Table(name = "tb_user")
-public class User implements UserDetails  {
+public class User implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,32 +33,112 @@ public class User implements UserDetails  {
 
 	@Column(unique = true)
 	private String email;
-	
+
 	private String name;
 	private String phone;
 	private LocalDate birthDate;
 	private String password;
-	
+
+	public User() {
+	}
+
+	public User(Long id, String email, String name, String phone, LocalDate birthDate, String password,
+			List<Order> orders, Set<Role> roles) {
+		super();
+		this.id = id;
+		this.email = email;
+		this.name = name;
+		this.phone = phone;
+		this.birthDate = birthDate;
+		this.password = password;
+		this.orders = orders;
+		this.roles = roles;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public LocalDate getBirthDate() {
+		return birthDate;
+	}
+
+	public void setBirthDate(LocalDate birthDate) {
+		this.birthDate = birthDate;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public List<Order> getOrders() {
+		return orders;
+	}
+
+	public void setOrders(List<Order> orders) {
+		this.orders = orders;
+	}
+
+	public Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Set<Role> roles) {
+		this.roles = roles;
+	}
+
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
-	
+
 	@ManyToMany
 	@JoinTable(name = "tb_user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
 	private Set<Role> roles = new HashSet<>();
 
-    public void addRole(Role role) {
-    	this.roles.add(role);
-    }
-    
-    public boolean hasHole(String roleName) {
-    	for (Role role : this.roles) {
+	public void addRole(Role role) {
+		this.roles.add(role);
+	}
+
+	public boolean hasHole(String roleName) {
+		for (Role role : this.roles) {
 			if (role.getAuthority().equals(roleName)) {
 				return true;
 			}
 		}
-    	return false;
-    }
-	
+		return false;
+	}
+
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
@@ -92,6 +164,26 @@ public class User implements UserDetails  {
 	@Override
 	public String getUsername() {
 		return this.email;
+	}
+
+	@Override
+	public boolean isAccountNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isAccountNonLocked() {
+		return true;
+	}
+
+	@Override
+	public boolean isCredentialsNonExpired() {
+		return true;
+	}
+
+	@Override
+	public boolean isEnabled() {
+		return true;
 	}
 
 }
