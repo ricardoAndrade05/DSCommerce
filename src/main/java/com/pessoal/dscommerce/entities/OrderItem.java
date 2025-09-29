@@ -1,12 +1,12 @@
 package com.pessoal.dscommerce.entities;
 
+import java.util.Objects;
+
 import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
 
 @Entity
-@EqualsAndHashCode
 @Table(name = "tb_order_item")
 public class OrderItem {
 
@@ -15,6 +15,9 @@ public class OrderItem {
 
 	private Integer quantity;
 	private Double price;
+
+	public OrderItem() {
+	}
 
 	public OrderItem(Order order, Product product, Integer quantity, Double price) {
 		this.id.setOrder(order);
@@ -54,4 +57,22 @@ public class OrderItem {
 	public void setOrder(Order order) {
 		this.id.setOrder(order);
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(id);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		OrderItem other = (OrderItem) obj;
+		return Objects.equals(id, other.id);
+	}
+
 }
