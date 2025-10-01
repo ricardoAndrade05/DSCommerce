@@ -8,6 +8,8 @@ import com.pessoal.dscommerce.entities.Order;
 import com.pessoal.dscommerce.entities.OrderItem;
 import com.pessoal.dscommerce.enums.OrderStatus;
 
+import jakarta.validation.constraints.NotEmpty;
+
 public class OrderDTO {
 
 	private Long id;
@@ -15,6 +17,8 @@ public class OrderDTO {
 	private OrderStatus status;
 	private ClientDTO client;
 	private PaymentDTO payment;
+	
+	@NotEmpty(message = "Deve ter ao menos um item.")
 	private List<OrderItemDTO> items = new ArrayList<>();
 
 	public OrderDTO() {
