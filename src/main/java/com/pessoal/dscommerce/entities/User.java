@@ -42,17 +42,15 @@ public class User implements UserDetails {
 	public User() {
 	}
 
-	public User(Long id, String email, String name, String phone, LocalDate birthDate, String password,
-			List<Order> orders, Set<Role> roles) {
-		super();
+	public User(Long id, String email, String name, String phone,
+			LocalDate birthDate, String password) {
+
 		this.id = id;
 		this.email = email;
 		this.name = name;
 		this.phone = phone;
 		this.birthDate = birthDate;
 		this.password = password;
-		this.orders = orders;
-		this.roles = roles;
 	}
 
 	public Long getId() {
