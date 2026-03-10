@@ -92,7 +92,6 @@ public class UserServiceTests {
 	public void getMeShouldReturnUserDTOWhenUserAuthenticated() {
 		UserService spyService = Mockito.spy(service);
 		Mockito.doReturn(user).when(spyService).authenticated();
-		//Mockito.doReturn(user).when(service).authenticated();
 
 		UserDTO result = spyService.getMe();
 		Assertions.assertNotNull(result);
