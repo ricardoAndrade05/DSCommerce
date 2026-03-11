@@ -1,7 +1,6 @@
 package com.pessoal.dscommerce.services;
 
 import java.time.Instant;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +11,7 @@ import com.pessoal.dscommerce.dto.OrderItemDTO;
 import com.pessoal.dscommerce.entities.Order;
 import com.pessoal.dscommerce.entities.OrderItem;
 import com.pessoal.dscommerce.entities.Product;
+import com.pessoal.dscommerce.entities.User;
 import com.pessoal.dscommerce.enums.OrderStatus;
 import com.pessoal.dscommerce.repositories.OrderItemRepository;
 import com.pessoal.dscommerce.repositories.OrderRepository;
@@ -46,22 +46,21 @@ public class OrderService {
 
     @Transactional
 	public OrderDTO insert(OrderDTO dto) {
-		
-    	Order order = new Order();
+		Order order = new Order();
     	
     	order.setMoment(Instant.now());
     	order.setStatus(OrderStatus.WAITING_PAYMENT);
     	
-    	order.setClient(userService.authenticated());
+    	User user = userService.authenticated();
+    	order.setClient(user);
     	
     	for (OrderItemDTO itemDto : dto.getItems()) {
     		Product product = productRepository.getReferenceById(itemDto.getProductId());
     		OrderItem item = new OrderItem(order, product, itemDto.getQuantity(), product.getPrice());
-    		Set<OrderItem> items = order.getItems();
-    		items.add(item);
+    		order.getItems().add(item);
     	}
     	
-    	repository.save(order);
+    	order = repository.save(order);
     	orderItemRepository.saveAll(order.getItems());
     	
     	return new OrderDTO(order);

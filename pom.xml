@@ -113,8 +113,9 @@
 						<exclude>com/pessoal/dscommerce/entities/**</exclude>
 						<exclude>com/pessoal/dscommerce/enums/**</exclude>
 						<exclude>com/pessoal/dscommerce/dto/**</exclude>
-						<exclude>com/pessoal/dscommerce/controllers/handlers/**</exclude>
+						<exclude>com/pessoal/dscommerce/controllers/**</exclude>
 						<exclude>com/pessoal/dscommerce/services/exceptions/**</exclude>
+						<exclude>com/pessoal/dscommerce/util/**</exclude>
 					</excludes>
 				</configuration>
 				<executions>
